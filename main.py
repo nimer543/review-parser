@@ -7,7 +7,7 @@ import dotenv
 import json
 import time
 
-# Connect to API and Version
+# Connect to API and Model
 dotenv.load_dotenv()
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 GEMINI_MODEL = "gemini-2.5-flash-lite"
@@ -35,7 +35,7 @@ review_schema = types.Schema(
         properties={
             "id": types.Schema(type=types.Type.INTEGER, description="Original Review ID"),
             "category": types.Schema(type=types.Type.STRING, description="Main category (Design, Effectiveness, Quality, Price, Usability, Customer Service, Delivery, Other."),
-            "sentiment": types.Schema(type=types.Type.STRING, description="Sentiment (Positive, Negative, Neutral)"),
+            "sentiment": types.Schema(type=types.Type.STRING, description="Sentiment (Positive, Negative, Mixed, Neutral)"),
 
         },
         required=["id", "category", "sentiment"]
@@ -83,7 +83,7 @@ def load_csv_to_sqlite():
     print(df)
     conn.close()
 
-# load_csv_to_sqlite()
+
 # Create analysis DB
 def setup_analyzed_db():
     conn = sqlite3.connect('sentiment_analysis.db')
